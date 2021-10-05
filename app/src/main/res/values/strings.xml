@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">GitHub User</string>
     <string name="searchFieldHint">Enter a username</string>
+    <string name="search_hint">Enter a username</string>
+    <string name="char_name">uname</string>
+    <string name="name">name</string>
+    <string name="repository">Repository</string>
+    <string name="follower">Follower</string>
+    <string name="following">Following</string>
+    <string name="company">Company</string>
+    <string name="location">Location</string>
+    <string name="share_button">Share Button</string>
 </resources>
