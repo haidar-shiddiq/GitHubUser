@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">GitHub User</string>
+    <string name="searchFieldHint">Enter a username</string>
+</resources>
