@@ -12,7 +12,7 @@ public class ItemModel {
         return searchData;
     }
 
-    public void setModelSearchData(List<SearchModel> searchData) {
+    public void setSearchModel(List<SearchModel> searchData) {
         this.searchData = searchData;
     }
 

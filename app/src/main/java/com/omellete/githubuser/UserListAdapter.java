@@ -41,10 +41,10 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Search
 
         Glide.with(holder.itemView.getContext())
                 .load(item.getAvatarUrl())
-                .into(holder.imageUser);
+                .into(holder.avaSearch);
 
-        holder.tvUsername.setText(item.getLogin());
-        holder.tvUrl.setText(item.getHtmlUrl());
+        holder.unameSearch.setText(item.getLogin());
+        holder.urlSearch.setText(item.getHtmlUrl());
 //        holder.cvListUser.setOnClickListener(view -> {
 //            Intent intent = new Intent(context, DetailActivity.class);
 //            intent.putExtra(DetailActivity.DETAIL_USER, modelSearchDataList.get(position));
@@ -60,16 +60,16 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Search
 
     public static class SearchViewHolder extends RecyclerView.ViewHolder {
 
-        CardView cvListUser;
-        TextView tvUsername, tvUrl;
-        ImageView imageUser;
+        CardView listUser;
+        TextView unameSearch, urlSearch;
+        ImageView avaSearch;
 
         public SearchViewHolder(View itemView) {
             super(itemView);
-            cvListUser = itemView.findViewById(R.id.cvListUser);
-            tvUsername = itemView.findViewById(R.id.tvUsername);
-            tvUrl = itemView.findViewById(R.id.tvUrl);
-            imageUser = itemView.findViewById(R.id.imageUser);
+            listUser = itemView.findViewById(R.id.listUser);
+            unameSearch = itemView.findViewById(R.id.unameSearch);
+            urlSearch = itemView.findViewById(R.id.urlSearch);
+            avaSearch = itemView.findViewById(R.id.avaSearch);
         }
     }
 
