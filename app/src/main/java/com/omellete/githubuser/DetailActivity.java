@@ -5,13 +5,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -22,10 +19,12 @@ import java.util.ArrayList;
 public class DetailActivity extends AppCompatActivity {
 
     public static final String DETAIL_USER = "DETAIL_USER";
+    public static final String DETAIL_FOLLOW = "DETAIL_FOLLOW";
 //    private FavoriteHelper favoriteHelper;
     ArrayList<ModelUser> modelUserArrayList = new ArrayList<>();
     MyViewModel userViewModel;
     SearchModel modelSearchData;
+    ModelFollow modelFollow;
     String strUsername;
     ImageView imageUser;
     TextView tvUsername, tvBio, tvFollowers, tvFollowing, tvRepository;
@@ -40,7 +39,6 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-//        toolbar = findViewById(R.id.toolbar);
         imageUser = findViewById(R.id.avaDetail);
         tvUsername = findViewById(R.id.unameDetail);
         tvBio = findViewById(R.id.locationDetail);
@@ -49,24 +47,18 @@ public class DetailActivity extends AppCompatActivity {
         tvRepository = findViewById(R.id.repoDetail);
         tabsLayout = findViewById(R.id.tabsLayout);
         viewPager = findViewById(R.id.viewPager);
-//        imageFavorite = findViewById(R.id.imageFavorite);
-//        collapsingToolbarLayout = findViewById(R.id.collapsingToolbarLayout);
 
-//        toolbar.setTitle(null);
-//        setSupportActionBar(toolbar);
-//        assert getSupportActionBar() != null;
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-//        favoriteHelper = FavoriteHelper.getFavoriteHelper(getApplicationContext());
-//        favoriteHelper.open();
-
+        modelFollow = getIntent().getParcelableExtra(DETAIL_FOLLOW);
         modelSearchData = getIntent().getParcelableExtra(DETAIL_USER);
         if (modelSearchData != null) {
             strUsername = modelSearchData.getLogin();
+            viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), modelSearchData));
+        }else if (modelFollow !=null){
+            strUsername = modelFollow.getLogin();
+            viewPager.setAdapter(new ViewPagerFollowAdapter(getSupportFragmentManager(), modelFollow));
         }
 
-        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), modelSearchData));
+
         viewPager.setOffscreenPageLimit(2);
         tabsLayout.setupWithViewPager(viewPager);
 

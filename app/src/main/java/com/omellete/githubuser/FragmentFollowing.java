@@ -17,6 +17,7 @@ import android.widget.Toast;
 public class FragmentFollowing extends Fragment {
 
     SearchModel modelSearchData;
+    ModelFollow modelFollow;
     MyViewModel followingViewModel;
     FollowAdapter followingAdapter;
     RecyclerView rvListFollowing;
@@ -40,9 +41,12 @@ public class FragmentFollowing extends Fragment {
         rvListFollowing = view.findViewById(R.id.rvListFollowing);
 //        layoutEmpty = view.findViewById(R.id.layoutEmpty);
 
+        modelFollow = this.getArguments().getParcelable("modelFollow");
         modelSearchData = this.getArguments().getParcelable("modelSearchData");
         if (modelSearchData != null) {
             strUsername = modelSearchData.getLogin();
+        }else if(modelFollow != null){
+            strUsername = modelFollow.getLogin();
         }
 
         followingAdapter = new FollowAdapter(getContext());

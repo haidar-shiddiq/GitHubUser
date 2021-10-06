@@ -21,6 +21,7 @@ public class FragmentFollowers extends Fragment {
     MyViewModel followersViewModel;
     FollowAdapter followAdapter;
     RecyclerView rvListFollowers;
+    ModelFollow modelFollow;
     ConstraintLayout layoutEmpty;
     ProgressDialog progressDialog;
     String strUsername;
@@ -41,9 +42,12 @@ public class FragmentFollowers extends Fragment {
         rvListFollowers = view.findViewById(R.id.rvListFollowers);
 //        layoutEmpty = view.findViewById(R.id.layoutEmpty);
 
+        modelFollow = this.getArguments().getParcelable("modelFollow");
         modelSearchData = this.getArguments().getParcelable("modelSearchData");
         if (modelSearchData != null) {
             strUsername = modelSearchData.getLogin();
+        }else if(modelFollow != null){
+            strUsername = modelFollow.getLogin();
         }
 
         followAdapter = new FollowAdapter(getContext());

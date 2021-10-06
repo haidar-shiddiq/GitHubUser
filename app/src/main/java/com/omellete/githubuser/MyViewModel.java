@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,9 +43,9 @@ public class MyViewModel extends ViewModel {
         });
     }
 
-    public void setUserDetail(String unamee) {
+    public void setUserDetail(String username) {
         ApiInterface apiService = ApiService.getClient().create(ApiInterface.class);
-        Call<ModelUser> call = apiService.detailUser(unamee);
+        Call<ModelUser> call = apiService.detailUser(username);
         call.enqueue(new Callback<ModelUser>() {
 
             @Override

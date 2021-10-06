@@ -1,6 +1,7 @@
 package com.omellete.githubuser;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 
 public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.FolowersViewHolder> {
 
-    private ArrayList<ModelFollow> modelFollowArrayList = new ArrayList<>();
+    private final ArrayList<ModelFollow> modelFollowArrayList = new ArrayList<>();
     private Context context;
 
     public FollowAdapter(Context context) {
@@ -45,14 +46,11 @@ public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.FolowersVi
 
         holder.tvUsername.setText(item.getLogin());
         holder.tvUrl.setText(item.getHtmlUrl());
-        /*holder.cvListUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra(DetailActivity.DETAIL_USER, modelFollowersArrayList.get(position));
-                context.startActivity(intent);
-            }
-        });*/
+        holder.cvListUser.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), DetailActivity.class);
+            intent.putExtra(DetailActivity.DETAIL_FOLLOW, item);
+            view.getContext().startActivity(intent);
+        });
 
     }
 
