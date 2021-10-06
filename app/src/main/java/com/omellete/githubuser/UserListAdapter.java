@@ -1,6 +1,7 @@
 package com.omellete.githubuser;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,11 +46,11 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Search
 
         holder.unameSearch.setText(item.getLogin());
         holder.urlSearch.setText(item.getHtmlUrl());
-//        holder.cvListUser.setOnClickListener(view -> {
-//            Intent intent = new Intent(context, DetailActivity.class);
-//            intent.putExtra(DetailActivity.DETAIL_USER, modelSearchDataList.get(position));
-//            context.startActivity(intent);
-//        });
+        holder.listUser.setOnClickListener(view -> {
+            Intent intent = new Intent(context, DetailActivity.class);
+            intent.putExtra(DetailActivity.DETAIL_USER, searchModelList.get(position));
+            context.startActivity(intent);
+        });
 
     }
 
