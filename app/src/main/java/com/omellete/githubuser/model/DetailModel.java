@@ -1,8 +1,8 @@
-package com.omellete.githubuser;
+package com.omellete.githubuser.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ModelUser {
+public class DetailModel {
 
     @SerializedName("id")
     private int id;
@@ -21,6 +21,9 @@ public class ModelUser {
 
     @SerializedName("blog")
     private String blog;
+
+    @SerializedName("company")
+    private String company;
 
     @SerializedName("location")
     private String location;
@@ -43,7 +46,7 @@ public class ModelUser {
     @SerializedName("following")
     private String following;
 
-    public ModelUser() {
+    public DetailModel() {
 
     }
 
@@ -69,6 +72,14 @@ public class ModelUser {
 
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 
     public String getHtmlUrl() {

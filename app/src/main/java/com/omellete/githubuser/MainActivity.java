@@ -14,6 +14,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.omellete.githubuser.adapter.UserListAdapter;
+import com.omellete.githubuser.model.SearchModel;
+import com.omellete.githubuser.viewmodel.MyViewModel;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         rv_main = findViewById(R.id.rv_main);
         loadingMessage = new ProgressDialog(this);
         loadingMessage.setCancelable(false);
-        loadingMessage.setMessage("Wait for a moment...");
+        loadingMessage.setMessage("Wait for a moment");
         userListAdapter = new UserListAdapter(this);
         rv_main.setLayoutManager(new LinearLayoutManager(this));
         rv_main.setAdapter(userListAdapter);

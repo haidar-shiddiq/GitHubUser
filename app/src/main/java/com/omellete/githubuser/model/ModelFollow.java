@@ -1,4 +1,4 @@
-package com.omellete.githubuser;
+package com.omellete.githubuser.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

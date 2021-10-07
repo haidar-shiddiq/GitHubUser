@@ -1,6 +1,7 @@
-package com.omellete.githubuser;
+package com.omellete.githubuser.model;
 
 import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class ItemModel {

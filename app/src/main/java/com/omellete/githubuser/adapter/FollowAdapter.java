@@ -1,4 +1,4 @@
-package com.omellete.githubuser;
+package com.omellete.githubuser.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.omellete.githubuser.DetailActivity;
+import com.omellete.githubuser.model.ModelFollow;
+import com.omellete.githubuser.R;
 
 import java.util.ArrayList;
 
@@ -38,17 +41,16 @@ public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.FolowersVi
 
     @Override
     public void onBindViewHolder(FollowAdapter.FolowersViewHolder holder, int position) {
-        ModelFollow item = modelFollowArrayList.get(position);
+        ModelFollow follow = modelFollowArrayList.get(position);
 
         Glide.with(holder.itemView.getContext())
-                .load(item.getAvatarUrl())
-                .into(holder.imageUser);
-
-        holder.tvUsername.setText(item.getLogin());
-        holder.tvUrl.setText(item.getHtmlUrl());
-        holder.cvListUser.setOnClickListener(view -> {
+                .load(follow.getAvatarUrl())
+                .into(holder.avatarrr);
+        holder.usernameee.setText(follow.getLogin());
+        holder.urlll.setText(follow.getHtmlUrl());
+        holder.listUser.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext(), DetailActivity.class);
-            intent.putExtra(DetailActivity.DETAIL_FOLLOW, item);
+            intent.putExtra(DetailActivity.DETAIL_FOLLOW, follow);
             view.getContext().startActivity(intent);
         });
 
@@ -61,16 +63,16 @@ public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.FolowersVi
 
     public static class FolowersViewHolder extends RecyclerView.ViewHolder {
 
-        CardView cvListUser;
-        TextView tvUsername, tvUrl;
-        ImageView imageUser;
+        CardView listUser;
+        TextView usernameee, urlll;
+        ImageView avatarrr;
 
         public FolowersViewHolder(View itemView) {
             super(itemView);
-            cvListUser = itemView.findViewById(R.id.listUser);
-            tvUsername = itemView.findViewById(R.id.unameSearch);
-            tvUrl = itemView.findViewById(R.id.urlSearch);
-            imageUser = itemView.findViewById(R.id.avaSearch);
+            listUser = itemView.findViewById(R.id.listUser);
+            usernameee = itemView.findViewById(R.id.unameSearch);
+            urlll = itemView.findViewById(R.id.urlSearch);
+            avatarrr = itemView.findViewById(R.id.avaSearch);
         }
     }
 

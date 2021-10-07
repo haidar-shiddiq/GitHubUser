@@ -1,4 +1,4 @@
-package com.omellete.githubuser;
+package com.omellete.githubuser.viewmodel;
 
 import android.util.Log;
 
@@ -6,8 +6,14 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.omellete.githubuser.model.SearchModel;
+import com.omellete.githubuser.api.ApiInterface;
+import com.omellete.githubuser.api.ApiService;
+import com.omellete.githubuser.model.DetailModel;
+import com.omellete.githubuser.model.ItemModel;
+import com.omellete.githubuser.model.ModelFollow;
+
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -15,10 +21,10 @@ import retrofit2.Response;
 
 public class MyViewModel extends ViewModel {
 
-    private MutableLiveData<ArrayList<SearchModel>> searchModelMutableLiveData = new MutableLiveData<>();
-    private MutableLiveData<ModelUser> modelUserMutableLiveData = new MutableLiveData<>();
-    private MutableLiveData<ArrayList<ModelFollow>> modelFollowersMutableLiveData = new MutableLiveData<>();
-    private MutableLiveData<ArrayList<ModelFollow>> modelFollowingMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<SearchModel>> searchModelMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<DetailModel> modelUserMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<ModelFollow>> modelFollowersMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<ModelFollow>> modelFollowingMutableLiveData = new MutableLiveData<>();
 
 
     public static String APIKey = "token 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";
@@ -36,6 +42,7 @@ public class MyViewModel extends ViewModel {
                     searchModelMutableLiveData.setValue(items);
                 }
             }
+
             @Override
             public void onFailure(Call<ItemModel> call, Throwable t) {
                 Log.e("failure", t.toString());
@@ -45,26 +52,26 @@ public class MyViewModel extends ViewModel {
 
     public void setUserDetail(String username) {
         ApiInterface apiService = ApiService.getClient().create(ApiInterface.class);
-        Call<ModelUser> call = apiService.detailUser(username);
-        call.enqueue(new Callback<ModelUser>() {
+        Call<DetailModel> call = apiService.detailUser(username);
+        call.enqueue(new Callback<DetailModel>() {
 
             @Override
-            public void onResponse(Call<ModelUser> call, Response<ModelUser> response) {
+            public void onResponse(Call<DetailModel> call, Response<DetailModel> response) {
                 if (!response.isSuccessful()) {
                     Log.e("response", response.toString());
                 } else if (response.body() != null) {
                     modelUserMutableLiveData.setValue(response.body());
                 }
             }
+
             @Override
-            public void onFailure(Call<ModelUser> call, Throwable t) {
+            public void onFailure(Call<DetailModel> call, Throwable t) {
                 Log.e("failure", t.toString());
             }
         });
     }
 
-    //method get followers
-    public void setFollowersUser(String strUsername) {
+    public void setFollowers(String strUsername) {
         ApiInterface apiService = ApiService.getClient().create(ApiInterface.class);
 
         Call<ArrayList<ModelFollow>> call = apiService.followersUser(APIKey, strUsername);
@@ -85,8 +92,7 @@ public class MyViewModel extends ViewModel {
         });
     }
 
-    //method get following
-    public void setFollowingUser(String strUsername) {
+    public void setFollowing(String strUsername) {
         ApiInterface apiService = ApiService.getClient().create(ApiInterface.class);
 
         Call<ArrayList<ModelFollow>> call = apiService.followingUser(APIKey, strUsername);
@@ -111,7 +117,7 @@ public class MyViewModel extends ViewModel {
         return searchModelMutableLiveData;
     }
 
-    public LiveData<ModelUser> getUserList() {
+    public LiveData<DetailModel> getUserList() {
         return modelUserMutableLiveData;
     }
 

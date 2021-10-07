@@ -1,7 +1,10 @@
-package com.omellete.githubuser;
+package com.omellete.githubuser.api;
+
+import com.omellete.githubuser.model.DetailModel;
+import com.omellete.githubuser.model.ItemModel;
+import com.omellete.githubuser.model.ModelFollow;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -12,7 +15,7 @@ import retrofit2.http.Query;
 public interface ApiInterface {
 
     @GET("users/{username}")
-    Call<ModelUser> detailUser(@Path("username") String username);
+    Call<DetailModel> detailUser(@Path("username") String username);
 
     @GET("/search/users")
     Call<ItemModel> searchUser(@Header("Authorization") String authorization,

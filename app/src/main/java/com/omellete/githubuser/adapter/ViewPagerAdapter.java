@@ -1,23 +1,28 @@
-package com.omellete.githubuser;
+package com.omellete.githubuser.adapter;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+import com.omellete.githubuser.fragment.FragmentFollowers;
+import com.omellete.githubuser.fragment.FragmentFollowing;
+import com.omellete.githubuser.model.SearchModel;
+
+public class ViewPagerAdapter extends FragmentStateAdapter {
 
     SearchModel modelSearchData;
 
-    public ViewPagerAdapter(FragmentManager fragmentManager, SearchModel modelSearchData) {
-        super(fragmentManager);
+    public ViewPagerAdapter(AppCompatActivity activity, SearchModel modelSearchData) {
+        super(activity);
         this.modelSearchData = modelSearchData;
     }
 
+    @NonNull
     @Override
-    public Fragment getItem(int position) {
+    public Fragment createFragment(int position) {
         Bundle bundle = new Bundle();
         bundle.putParcelable("modelSearchData", modelSearchData);
         Fragment fragment = null;
@@ -35,22 +40,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
-    public int getCount() {
+    public int getItemCount() {
         return 2;
     }
-
-    @Override
-    public CharSequence getPageTitle(int position) {
-        String title = "";
-        switch (position) {
-            case 0:
-                title = "Followers";
-                break;
-            case 1:
-                title = "Following";
-                break;
-        }
-        return title;
-    }
-
 }

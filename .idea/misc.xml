@@ -9,11 +9,13 @@
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/GitHubUser/app/src/main/res/drawable/ic_clear.xml" value="0.124" />
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/GitHubUser/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2265" />
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/GitHubUser/app/src/main/res/drawable/ic_search.xml" value="0.124" />
+        <entry key="..\:/KULON/MBKM SIB DICODING/android project/GitHubUser/app/src/main/res/drawable/ic_user.xml" value="0.227" />
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/GitHubUser/app/src/main/res/drawable/tab_background_selected.xml" value="0.124" />
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/GitHubUser/app/src/main/res/drawable/tab_layout_selector.xml" value="0.124" />
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/GitHubUser/app/src/main/res/layout/activity_detail.xml" value="0.264" />
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/GitHubUser/app/src/main/res/layout/activity_favorite.xml" value="0.22826086956521738" />
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/GitHubUser/app/src/main/res/layout/activity_main.xml" value="0.3122302158273381" />
+        <entry key="..\:/KULON/MBKM SIB DICODING/android project/GitHubUser/app/src/main/res/layout/activity_splash.xml" value="0.22056159420289856" />
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/GitHubUser/app/src/main/res/layout/detailing.xml" value="0.2" />
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/GitHubUser/app/src/main/res/layout/fragment_followers.xml" value="0.2" />
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/GitHubUser/app/src/main/res/layout/fragment_following.xml" value="0.11302083333333333" />
@@ -21,6 +23,7 @@
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/GitHubUser/app/src/main/res/layout/layout_empty.xml" value="0.11302083333333333" />
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/GitHubUser/app/src/main/res/layout/list_item_data.xml" value="0.4" />
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/GitHubUser/app/src/main/res/layout/option_menu.xml" value="0.11302083333333333" />
+        <entry key="..\:/KULON/MBKM SIB DICODING/android project/GitHubUser/app/src/main/res/menu/detail_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/GitHubUser/app/src/main/res/menu/option_menu.xml" value="0.536" />
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/GitHubUser/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.124" />
       </map>

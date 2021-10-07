@@ -1,4 +1,4 @@
-package com.omellete.githubuser;
+package com.omellete.githubuser.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.omellete.githubuser.DetailActivity;
+import com.omellete.githubuser.R;
+import com.omellete.githubuser.model.SearchModel;
 
 import java.util.ArrayList;
 
