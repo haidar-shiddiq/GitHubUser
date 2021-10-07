@@ -21,7 +21,7 @@ public class MyViewModel extends ViewModel {
     private MutableLiveData<ArrayList<ModelFollow>> modelFollowingMutableLiveData = new MutableLiveData<>();
 
 
-    public static String APIKey = "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";
+    public static String APIKey = "token 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";
 
     public void searchUsername(String query) {
         ApiInterface apiService = ApiService.getClient().create(ApiInterface.class);
