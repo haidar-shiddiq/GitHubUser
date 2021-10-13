@@ -27,6 +27,6 @@ public interface ApiInterface {
 
     @GET("users/{username}/following")
     Call<ArrayList<ModelFollow>> followingUser(@Header("Authorization") String authorization,
-                                          @Path("username") String username);
+                                               @Path("username") String username);
 
 }

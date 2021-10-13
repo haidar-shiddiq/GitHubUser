@@ -24,7 +24,7 @@ public class FragmentFollowers extends Fragment {
     SearchModel modelSearchData;
     MyViewModel followersViewModel;
     FollowAdapter followAdapter;
-    RecyclerView rv_follower;
+    RecyclerView rvFollower;
     ModelFollow modelFollow;
     ProgressDialog loading;
     String usernameKey;
@@ -36,11 +36,12 @@ public class FragmentFollowers extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_followers, container, false);
 
+
         loading = new ProgressDialog(getContext());
         loading.setCancelable(false);
         loading.setMessage("Wait for a moment");
 
-        rv_follower = view.findViewById(R.id.rv_follower);
+        rvFollower = view.findViewById(R.id.rv_follower);
 
         assert this.getArguments() != null;
         modelFollow = this.getArguments().getParcelable("modelFollow");
@@ -52,9 +53,9 @@ public class FragmentFollowers extends Fragment {
         }
 
         followAdapter = new FollowAdapter(getContext());
-        rv_follower.setLayoutManager(new LinearLayoutManager(getContext()));
-        rv_follower.setAdapter(followAdapter);
-        rv_follower.setHasFixedSize(true);
+        rvFollower.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvFollower.setAdapter(followAdapter);
+        rvFollower.setHasFixedSize(true);
 
         followersViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(MyViewModel.class);
         followersViewModel.setFollowers(usernameKey);

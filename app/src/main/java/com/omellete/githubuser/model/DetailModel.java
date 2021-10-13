@@ -13,29 +13,14 @@ public class DetailModel {
     @SerializedName("avatar_url")
     private String avatarUrl;
 
-    @SerializedName("html_url")
-    private String htmlUrl;
-
     @SerializedName("name")
     private String name;
-
-    @SerializedName("blog")
-    private String blog;
 
     @SerializedName("company")
     private String company;
 
     @SerializedName("location")
     private String location;
-
-    @SerializedName("email")
-    private String email;
-
-    @SerializedName("bio")
-    private String bio;
-
-    @SerializedName("twitter_username")
-    private String twitterUsername;
 
     @SerializedName("public_repos")
     private String publicRepos;
@@ -62,33 +47,16 @@ public class DetailModel {
         return login;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
 
     public String getAvatarUrl() {
         return avatarUrl;
     }
 
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
 
     public String getCompany() {
         return company;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public String getHtmlUrl() {
-        return htmlUrl;
-    }
-
-    public void setHtmlUrl(String htmlUrl) {
-        this.htmlUrl = htmlUrl;
-    }
 
     public String getName() {
         return name;
@@ -98,68 +66,24 @@ public class DetailModel {
         this.name = name;
     }
 
-    public String getBlog() {
-        return blog;
-    }
-
-    public void setBlog(String blog) {
-        this.blog = blog;
-    }
 
     public String getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
-    public String getTwitterUsername() {
-        return twitterUsername;
-    }
-
-    public void setTwitterUsername(String twitterUsername) {
-        this.twitterUsername = twitterUsername;
-    }
 
     public String getPublicRepos() {
         return publicRepos;
     }
 
-    public void setPublicRepos(String publicRepos) {
-        this.publicRepos = publicRepos;
-    }
 
     public String getFollowers() {
         return followers;
     }
 
-    public void setFollowers(String followers) {
-        this.followers = followers;
-    }
 
     public String getFollowing() {
         return following;
-    }
-
-    public void setFollowing(String following) {
-        this.following = following;
     }
 
 }

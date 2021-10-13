@@ -24,7 +24,7 @@ public class FragmentFollowing extends Fragment {
     ModelFollow modelFollow;
     MyViewModel followingViewModel;
     FollowAdapter followingAdapter;
-    RecyclerView rv_following;
+    RecyclerView rvFollowing;
     ProgressDialog loading;
     String usernameKey;
 
@@ -39,7 +39,7 @@ public class FragmentFollowing extends Fragment {
         loading.setCancelable(false);
         loading.setMessage("Wait for a moment");
 
-        rv_following = view.findViewById(R.id.rv_following);
+        rvFollowing = view.findViewById(R.id.rv_following);
 
         assert this.getArguments() != null;
         modelFollow = this.getArguments().getParcelable("modelFollow");
@@ -51,9 +51,9 @@ public class FragmentFollowing extends Fragment {
         }
 
         followingAdapter = new FollowAdapter(getContext());
-        rv_following.setLayoutManager(new LinearLayoutManager(getContext()));
-        rv_following.setAdapter(followingAdapter);
-        rv_following.setHasFixedSize(true);
+        rvFollowing.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvFollowing.setAdapter(followingAdapter);
+        rvFollowing.setHasFixedSize(true);
 
         followingViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(MyViewModel.class);
         followingViewModel.setFollowing(usernameKey);

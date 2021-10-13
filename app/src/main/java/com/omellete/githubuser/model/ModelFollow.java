@@ -14,7 +14,7 @@ public class ModelFollow implements Parcelable {
     private String avatarUrl;
 
     @SerializedName("html_url")
-    private String htmlUrl;
+    private final String htmlUrl;
 
     public String getLogin() {
         return login;

@@ -4,21 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.omellete.githubuser.adapter.ViewPagerAdapter;
 import com.omellete.githubuser.adapter.ViewPagerFollowAdapter;
+import com.omellete.githubuser.databinding.ActivityDetailBinding;
 import com.omellete.githubuser.model.ModelFollow;
 import com.omellete.githubuser.model.SearchModel;
 import com.omellete.githubuser.viewmodel.MyViewModel;
@@ -36,42 +33,32 @@ public class DetailActivity extends AppCompatActivity {
     SearchModel modelSearchData;
     ModelFollow modelFollow;
     String usernameKey;
-    ImageView avatarr;
-    TextView usernamee, locationn, followerr, following, reposs,namee,companyy;
-    TabLayout tabsLayout;
-    ViewPager2 viewPager;
+    private ActivityDetailBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
-        ActionBar back = getSupportActionBar();
-        back.setDisplayHomeAsUpEnabled(true);
+        binding = ActivityDetailBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        avatarr = findViewById(R.id.avaDetail);
-        namee = findViewById(R.id.nameDetail);
-        companyy = findViewById(R.id.companyDetail);
-        usernamee = findViewById(R.id.unameDetail);
-        locationn = findViewById(R.id.locationDetail);
-        followerr = findViewById(R.id.followersDetail);
-        following = findViewById(R.id.followingDetail);
-        reposs = findViewById(R.id.repoDetail);
-        tabsLayout = findViewById(R.id.tabsLayout);
-        viewPager = findViewById(R.id.viewPager);
+        ActionBar back = getSupportActionBar();
+        if (back != null) {
+            back.setDisplayHomeAsUpEnabled(true);
+        }
 
         modelFollow = getIntent().getParcelableExtra(DETAIL_FOLLOW);
         modelSearchData = getIntent().getParcelableExtra(DETAIL_USER);
         if (modelSearchData != null) {
             usernameKey = modelSearchData.getLogin();
             ViewPagerAdapter adapter = new ViewPagerAdapter(this, modelSearchData);
-            viewPager.setAdapter(adapter);
+            binding.viewPager.setAdapter(adapter);
         }else if (modelFollow !=null){
             usernameKey = modelFollow.getLogin();
             ViewPagerFollowAdapter adapter = new ViewPagerFollowAdapter(this, modelFollow);
-            viewPager.setAdapter(adapter);
+            binding.viewPager.setAdapter(adapter);
         }
 
-        new TabLayoutMediator(tabsLayout, viewPager,
+        new TabLayoutMediator(binding.tabsLayout, binding.viewPager,
                 (tab, position) -> tab.setText(getResources().getString(TAB_TITLES[position]))
         ).attach();
         if (getSupportActionBar() != null) {
@@ -84,22 +71,21 @@ public class DetailActivity extends AppCompatActivity {
         userViewModel.getUserList().observe(this, modelUser -> {
             Glide.with(getApplicationContext())
                     .load(modelUser.getAvatarUrl())
-                    .into(avatarr);
+                    .into(binding.avaDetail);
 
-            namee.setText(modelUser.getName());
-            companyy.setText(modelUser.getCompany());
-            usernamee.setText(modelUser.getLogin());
-            locationn.setText(modelUser.getLocation());
-            followerr.setText(modelUser.getFollowers());
-            following.setText(modelUser.getFollowing());
-            reposs.setText(modelUser.getPublicRepos());
+            binding.nameDetail.setText(modelUser.getName());
+            binding.companyDetail.setText(modelUser.getCompany());
+            binding.unameDetail.setText(modelUser.getLogin());
+            binding.locationDetail.setText(modelUser.getLocation());
+            binding.followersDetail.setText(modelUser.getFollowers());
+            binding.followingDetail.setText(modelUser.getFollowing());
+            binding.repoDetail.setText(modelUser.getPublicRepos());
 
         });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
         getMenuInflater().inflate(R.menu.detail_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }

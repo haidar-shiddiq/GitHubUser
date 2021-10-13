@@ -15,4 +15,6 @@
     <string name="viewpager">viewpager</string>
     <string name="Followers">Followers</string>
     <string name="Following">Following</string>
+    <string name="share">shareBtn</string>
+    <string name="searchbtn">search</string>
 </resources>

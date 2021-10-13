@@ -8,47 +8,27 @@ import com.google.gson.annotations.SerializedName;
 public class SearchModel implements Parcelable {
 
     @SerializedName("login")
-    private String login;
+    private final String login;
 
     @SerializedName("url")
-    private String url;
+    private final String url;
 
     @SerializedName("avatar_url")
-    private String avatarUrl;
+    private final String avatarUrl;
 
     @SerializedName("html_url")
     private String htmlUrl;
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
     public String getLogin() {
         return login;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
     }
 
     public String getAvatarUrl() {
         return avatarUrl;
     }
 
-    public void setHtmlUrl(String htmlUrl) {
-        this.htmlUrl = htmlUrl;
-    }
-
     public String getHtmlUrl() {
         return htmlUrl;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     @Override
@@ -56,8 +36,6 @@ public class SearchModel implements Parcelable {
         return 0;
     }
 
-    public SearchModel() {
-    }
 
     protected SearchModel(Parcel in) {
         this.avatarUrl = in.readString();

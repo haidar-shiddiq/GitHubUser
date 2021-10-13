@@ -13,8 +13,5 @@ public class ItemModel {
         return searchData;
     }
 
-    public void setSearchModel(List<SearchModel> searchData) {
-        this.searchData = searchData;
-    }
 
 }
