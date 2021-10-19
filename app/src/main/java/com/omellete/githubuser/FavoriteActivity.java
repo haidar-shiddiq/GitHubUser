@@ -3,6 +3,7 @@ package com.omellete.githubuser;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -10,26 +11,30 @@ import android.view.MenuItem;
 import com.omellete.githubuser.adapter.FavoriteAdapter;
 import com.omellete.githubuser.databinding.ActivityFavoriteBinding;
 import com.omellete.githubuser.databinding.ActivityMainBinding;
+import com.omellete.githubuser.db.FavoriteList;
+
+import java.util.List;
 
 
 public class FavoriteActivity extends AppCompatActivity {
-
-    private ActivityFavoriteBinding binding;
-
+    private RecyclerView rv;
+    private FavoriteAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityFavoriteBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        binding.rvFavorite.setLayoutManager(new LinearLayoutManager(this));
-        FavoriteAdapter adapter = new FavoriteAdapter();
-        binding.rvFavorite.setAdapter(adapter);
-        binding.rvFavorite.setHasFixedSize(true);
+        setContentView(R.layout.item_user);
+        rv=(RecyclerView)findViewById(R.id.rvFavorite);
+        rv.setHasFixedSize(true);
+        rv.setLayoutManager(new LinearLayoutManager(this));
 
-        ActionBar back = getSupportActionBar();
-        if (back != null) {
-            back.setDisplayHomeAsUpEnabled(true);
-        }
+        getFavData();
+    }
+
+    private void getFavData() {
+        List<FavoriteList> favoriteLists=DetailActivity.favoriteDatabase.favoriteDao().getFavoriteData();
+
+        adapter=new FavoriteAdapter(favoriteLists,getApplicationContext());
+        rv.setAdapter(adapter);
     }
 
     @Override

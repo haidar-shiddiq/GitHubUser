@@ -9,15 +9,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.room.Room;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.omellete.githubuser.adapter.ViewPagerAdapter;
 import com.omellete.githubuser.adapter.ViewPagerFollowAdapter;
 import com.omellete.githubuser.databinding.ActivityDetailBinding;
+import com.omellete.githubuser.db.FavoriteDatabase;
+import com.omellete.githubuser.model.DetailModel;
 import com.omellete.githubuser.model.ModelFollow;
 import com.omellete.githubuser.model.SearchModel;
 import com.omellete.githubuser.viewmodel.MyViewModel;
+
+import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -32,6 +37,8 @@ public class DetailActivity extends AppCompatActivity {
     SearchModel modelSearchData;
     ModelFollow modelFollow;
     String usernameKey;
+    private List<DetailModel> detailModel;
+    public static FavoriteDatabase favoriteDatabase;
     private ActivityDetailBinding binding;
 
     @Override
@@ -81,6 +88,9 @@ public class DetailActivity extends AppCompatActivity {
             binding.repoDetail.setText(modelUser.getPublicRepos());
 
         });
+
+
+        favoriteDatabase= Room.databaseBuilder(getApplicationContext(),FavoriteDatabase.class,"myfavdb").allowMainThreadQueries().build();
     }
 
     @Override

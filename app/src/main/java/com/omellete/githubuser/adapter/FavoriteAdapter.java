@@ -1,5 +1,6 @@
 package com.omellete.githubuser.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,59 +13,52 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.omellete.githubuser.R;
 import com.omellete.githubuser.databinding.ItemUserBinding;
+import com.omellete.githubuser.db.FavoriteList;
 import com.omellete.githubuser.model.DetailModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder> {
+public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
+    private List<FavoriteList> favoriteLists;
+    Context context;
 
-    private ArrayList<DetailModel> detailModelArrayList = new ArrayList<>();
-
-    public void setFavoriteUserList(ArrayList<DetailModel> data) {
-        this.detailModelArrayList.clear();
-        this.detailModelArrayList.addAll(data);
-        notifyDataSetChanged();
+    public FavoriteAdapter(List<FavoriteList> favoriteLists, Context context) {
+        this.favoriteLists = favoriteLists;
+        this.context = context;
     }
 
     @NonNull
     @Override
-    public FavoriteAdapter.FavoriteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ItemUserBinding binding = ItemUserBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        return new FavoriteAdapter.FavoriteViewHolder(binding);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_user,viewGroup,false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(FavoriteViewHolder holder, int position) {
-        DetailModel item = detailModelArrayList.get(position);
-
-        Glide.with(holder.itemView.getContext())
-                .load(item.getAvatarUrl())
-                .into(holder.binding.avaSearch);
-
-        holder.binding.unameSearch.setText(item.getLogin());
-        holder.binding.urlSearch.setText("github.com/"+item.getLogin());
-        /*holder.cvListUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra(DetailActivity.DETAIL_USER, modelFollowersArrayList.get(position));
-                context.startActivity(intent);
-            }
-        });*/
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+        FavoriteList fl=favoriteLists.get(i);
+//        Picasso.with(context).load(fl.getImage()).into(viewHolder.img);
+        viewHolder.tv.setText(fl.getUsername());
+        viewHolder.url.setText(fl.getUrl());
+        Glide.with(viewHolder.itemView.getContext())
+        .load(fl.getImage())
+        .into(viewHolder.img);
     }
 
     @Override
     public int getItemCount() {
-        return detailModelArrayList.size();
+        return favoriteLists.size();
     }
 
-    public class FavoriteViewHolder extends RecyclerView.ViewHolder {
-        ItemUserBinding binding;
-
-        public FavoriteViewHolder(ItemUserBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        ImageView img;
+        TextView tv,url;
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            img=(ImageView)itemView.findViewById(R.id.avaSearch);
+            tv=(TextView)itemView.findViewById(R.id.unameSearch);
+            url=(TextView) itemView.findViewById(R.id.urlSearch);
         }
     }
-
 }
