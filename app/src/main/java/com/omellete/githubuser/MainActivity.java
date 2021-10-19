@@ -3,11 +3,14 @@ package com.omellete.githubuser;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.ViewModelProvider;
@@ -80,6 +83,21 @@ public class MainActivity extends AppCompatActivity {
             });
         }
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.setting:
+                Intent i = new Intent(this, SettingActivity.class);
+                startActivity(i);
+                break;
+            case R.id.favorite:
+                Intent j = new Intent(this, FavoriteActivity.class);
+                startActivity(j);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

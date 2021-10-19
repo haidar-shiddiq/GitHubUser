@@ -1,15 +1,14 @@
 package com.omellete.githubuser;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -52,7 +51,7 @@ public class DetailActivity extends AppCompatActivity {
             usernameKey = modelSearchData.getLogin();
             ViewPagerAdapter adapter = new ViewPagerAdapter(this, modelSearchData);
             binding.viewPager.setAdapter(adapter);
-        }else if (modelFollow !=null){
+        } else if (modelFollow != null) {
             usernameKey = modelFollow.getLogin();
             ViewPagerFollowAdapter adapter = new ViewPagerFollowAdapter(this, modelFollow);
             binding.viewPager.setAdapter(adapter);
@@ -101,6 +100,10 @@ public class DetailActivity extends AppCompatActivity {
                 sharingIntent.putExtra(Intent.EXTRA_SUBJECT, shareSub);
                 sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Share using"));
+                break;
+            case R.id.setting:
+                Intent i = new Intent(this, SettingActivity.class);
+                startActivity(i);
                 break;
             case android.R.id.home:
                 this.finish();
