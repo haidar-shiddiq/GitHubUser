@@ -1,4 +1,4 @@
-package com.omellete.githubuser.db;
+package com.omellete.githubuser.preference;
 
 import androidx.datastore.preferences.core.MutablePreferences;
 import androidx.datastore.preferences.core.Preferences;

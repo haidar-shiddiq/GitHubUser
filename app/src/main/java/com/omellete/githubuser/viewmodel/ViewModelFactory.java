@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.omellete.githubuser.db.SettingPreferences;
+import com.omellete.githubuser.preference.SettingPreferences;
 
 public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 

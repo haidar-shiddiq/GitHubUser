@@ -1,64 +1,78 @@
 package com.omellete.githubuser.adapter;
 
-import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.omellete.githubuser.R;
-import com.omellete.githubuser.databinding.ItemUserBinding;
-import com.omellete.githubuser.db.FavoriteList;
-import com.omellete.githubuser.model.DetailModel;
+import com.omellete.githubuser.DetailActivity;
+import com.omellete.githubuser.databinding.ItemFavBinding;
+import com.omellete.githubuser.model.FavoriteModel;
 
-import java.util.ArrayList;
-import java.util.List;
+public class FavoriteAdapter extends ListAdapter<FavoriteModel, FavoriteAdapter.ViewHolder> {
 
-public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
-    private List<FavoriteList> favoriteLists;
-    Context context;
+    private OnItemClickListener listener;
 
-    public FavoriteAdapter(List<FavoriteList> favoriteLists, Context context) {
-        this.favoriteLists = favoriteLists;
-        this.context = context;
+    public FavoriteAdapter() {
+        super(DIFF_CALLBACK);
     }
+
+    private static final DiffUtil.ItemCallback<FavoriteModel> DIFF_CALLBACK = new DiffUtil.ItemCallback<FavoriteModel>() {
+        @Override
+        public boolean areItemsTheSame(FavoriteModel oldItem, FavoriteModel newItem) {
+            return oldItem.getUid() == newItem.getUid();
+        }
+
+        @Override
+        public boolean areContentsTheSame(FavoriteModel oldItem, FavoriteModel newItem) {
+            return oldItem.getUsername().equals(newItem.getUsername()) &&
+                    oldItem.getHtmlurl().equals(newItem.getHtmlurl());
+        }
+    };
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_user,viewGroup,false);
-        return new ViewHolder(view);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemFavBinding binding = ItemFavBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new FavoriteAdapter.ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        FavoriteList fl=favoriteLists.get(i);
-//        Picasso.with(context).load(fl.getImage()).into(viewHolder.img);
-        viewHolder.tv.setText(fl.getUsername());
-        viewHolder.url.setText(fl.getUrl());
-        Glide.with(viewHolder.itemView.getContext())
-        .load(fl.getImage())
-        .into(viewHolder.img);
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        FavoriteModel model = getFavAt(position);
+        holder.binding.unameSearch.setText(model.getUsername());
+        holder.binding.urlSearch.setText(model.getHtmlurl());
+        holder.binding.listUser.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), DetailActivity.class);
+            intent.putExtra(DetailActivity.DETAIL_FAV, model);
+            view.getContext().startActivity(intent);
+        });
+
     }
 
-    @Override
-    public int getItemCount() {
-        return favoriteLists.size();
+    public FavoriteModel getFavAt(int position) {
+        return getItem(position);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView img;
-        TextView tv,url;
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            img=(ImageView)itemView.findViewById(R.id.avaSearch);
-            tv=(TextView)itemView.findViewById(R.id.unameSearch);
-            url=(TextView) itemView.findViewById(R.id.urlSearch);
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        ItemFavBinding binding;
+
+        ViewHolder(ItemFavBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(FavoriteModel model);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }

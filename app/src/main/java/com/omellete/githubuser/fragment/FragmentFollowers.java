@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.omellete.githubuser.R;
 import com.omellete.githubuser.adapter.FollowAdapter;
+import com.omellete.githubuser.model.FavoriteModel;
 import com.omellete.githubuser.model.ModelFollow;
 import com.omellete.githubuser.model.SearchModel;
 import com.omellete.githubuser.viewmodel.MyViewModel;
@@ -26,6 +27,7 @@ public class FragmentFollowers extends Fragment {
     FollowAdapter followAdapter;
     RecyclerView rvFollower;
     ModelFollow modelFollow;
+    FavoriteModel modelFav;
     ProgressDialog loading;
     String usernameKey;
 
@@ -46,10 +48,13 @@ public class FragmentFollowers extends Fragment {
         assert this.getArguments() != null;
         modelFollow = this.getArguments().getParcelable("modelFollow");
         modelSearchData = this.getArguments().getParcelable("modelSearchData");
+        modelFav = this.getArguments().getParcelable("modelFav");
         if (modelSearchData != null) {
             usernameKey = modelSearchData.getLogin();
         } else if (modelFollow != null) {
             usernameKey = modelFollow.getLogin();
+        } else if (modelFav != null) {
+            usernameKey = modelFav.getUsername();
         }
 
         followAdapter = new FollowAdapter(getContext());

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.LiveDataReactiveStreams;
 import androidx.lifecycle.ViewModel;
 
-import com.omellete.githubuser.db.SettingPreferences;
+import com.omellete.githubuser.preference.SettingPreferences;
 
 public class MainViewModel extends ViewModel {
     private final SettingPreferences pref;

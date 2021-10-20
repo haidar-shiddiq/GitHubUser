@@ -12,13 +12,20 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SearchView;
+import androidx.datastore.preferences.core.Preferences;
+import androidx.datastore.preferences.rxjava3.RxPreferenceDataStoreBuilder;
+import androidx.datastore.rxjava3.RxDataStore;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.omellete.githubuser.adapter.UserListAdapter;
 import com.omellete.githubuser.databinding.ActivityMainBinding;
+import com.omellete.githubuser.preference.SettingPreferences;
+import com.omellete.githubuser.viewmodel.MainViewModel;
 import com.omellete.githubuser.viewmodel.MyViewModel;
+import com.omellete.githubuser.viewmodel.ViewModelFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressDialog loadingMessage;
     UserListAdapter userListAdapter;
     private ActivityMainBinding binding;
+    public static RxDataStore<Preferences> dataStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +49,17 @@ public class MainActivity extends AppCompatActivity {
         binding.rvMain.setAdapter(userListAdapter);
         binding.rvMain.setHasFixedSize(true);
 
+        dataStore = new RxPreferenceDataStoreBuilder(this, "settings").build();
+        SettingPreferences pref = SettingPreferences.getInstance(dataStore);
+        MainViewModel mainViewModel = new ViewModelProvider(this, new ViewModelFactory(pref)).get(MainViewModel.class);
+
+        mainViewModel.getThemeSettings().observe(this, isDarkModeActive -> {
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+        });
 
         searchViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(MyViewModel.class);
         searchViewModel.getResultList().observe(this, modelSearchData -> {
@@ -99,5 +118,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 }

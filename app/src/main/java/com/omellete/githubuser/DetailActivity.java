@@ -4,30 +4,33 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.room.Room;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.omellete.githubuser.adapter.ViewPagerAdapter;
+import com.omellete.githubuser.adapter.ViewPagerFavAdapter;
 import com.omellete.githubuser.adapter.ViewPagerFollowAdapter;
 import com.omellete.githubuser.databinding.ActivityDetailBinding;
-import com.omellete.githubuser.db.FavoriteDatabase;
-import com.omellete.githubuser.model.DetailModel;
+import com.omellete.githubuser.model.FavoriteModel;
+import com.omellete.githubuser.db.RoomViewModel;
 import com.omellete.githubuser.model.ModelFollow;
 import com.omellete.githubuser.model.SearchModel;
 import com.omellete.githubuser.viewmodel.MyViewModel;
-
-import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
 
     public static final String DETAIL_USER = "DETAIL_USER";
     public static final String DETAIL_FOLLOW = "DETAIL_FOLLOW";
+    public static final String DETAIL_FAV = "DETAIL_FAV";
+    public static String usernameKey = "";
+    public boolean flag;
     private final int[] TAB_TITLES = new int[]{
             R.string.Followers,
             R.string.Following
@@ -36,10 +39,16 @@ public class DetailActivity extends AppCompatActivity {
     MyViewModel userViewModel;
     SearchModel modelSearchData;
     ModelFollow modelFollow;
-    String usernameKey;
-    private List<DetailModel> detailModel;
-    public static FavoriteDatabase favoriteDatabase;
+    FavoriteModel modelFav, favModel;
+    String favUnamee, favNamee;
     private ActivityDetailBinding binding;
+
+    public static final String EXTRA_UID = "EXTRA_UID";
+    public static final String EXTRA_USERNAME = "EXTRA_USERNAME";
+    public static final String EXTRA_NAME = "EXTRA_NAME";
+
+    public DetailActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +61,8 @@ public class DetailActivity extends AppCompatActivity {
             back.setDisplayHomeAsUpEnabled(true);
         }
 
+        modelFav = getIntent().getParcelableExtra(DETAIL_FAV);
+
         modelFollow = getIntent().getParcelableExtra(DETAIL_FOLLOW);
         modelSearchData = getIntent().getParcelableExtra(DETAIL_USER);
         if (modelSearchData != null) {
@@ -61,6 +72,10 @@ public class DetailActivity extends AppCompatActivity {
         } else if (modelFollow != null) {
             usernameKey = modelFollow.getLogin();
             ViewPagerFollowAdapter adapter = new ViewPagerFollowAdapter(this, modelFollow);
+            binding.viewPager.setAdapter(adapter);
+        } else if (modelFav != null) {
+            usernameKey = modelFav.getUsername();
+            ViewPagerFavAdapter adapter = new ViewPagerFavAdapter(this, modelFav);
             binding.viewPager.setAdapter(adapter);
         }
 
@@ -86,11 +101,37 @@ public class DetailActivity extends AppCompatActivity {
             binding.followersDetail.setText(modelUser.getFollowers());
             binding.followingDetail.setText(modelUser.getFollowing());
             binding.repoDetail.setText(modelUser.getPublicRepos());
+            favUnamee = modelUser.getLogin();
+            favNamee = modelUser.getName();
 
         });
 
 
-        favoriteDatabase= Room.databaseBuilder(getApplicationContext(),FavoriteDatabase.class,"myfavdb").allowMainThreadQueries().build();
+        Intent intent = getIntent();
+        if (intent.hasExtra(EXTRA_UID)) {
+            binding.unameDetail.setText(intent.getStringExtra(EXTRA_USERNAME));
+            binding.nameDetail.setText(intent.getStringExtra(EXTRA_NAME));
+        }
+
+        flag = true;
+        binding.fabFavorite.setOnClickListener(v -> {
+            RoomViewModel roomViewModel = new ViewModelProvider(DetailActivity.this).get(RoomViewModel.class);
+            String favUname = favUnamee;
+            String favName = favNamee;
+            FavoriteModel model = new FavoriteModel(favUname, favName);
+            if (flag) {
+                binding.fabFavorite.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.delete));
+                flag = false;
+                roomViewModel.insert(model);
+                Toast.makeText(getApplicationContext(), "User added to Favorite", Toast.LENGTH_SHORT).show();
+            } else {
+                binding.fabFavorite.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.favorite));
+                flag = true;
+                roomViewModel.deleteAllFav();
+                Toast.makeText(getApplicationContext(), "All user removed from Favorite", Toast.LENGTH_SHORT).show();
+            }
+
+        });
     }
 
     @Override

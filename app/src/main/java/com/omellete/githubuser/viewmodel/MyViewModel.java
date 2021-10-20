@@ -6,12 +6,13 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.omellete.githubuser.model.SearchModel;
 import com.omellete.githubuser.api.ApiInterface;
 import com.omellete.githubuser.api.ApiService;
+import com.omellete.githubuser.model.FavoriteModel;
 import com.omellete.githubuser.model.DetailModel;
 import com.omellete.githubuser.model.ItemModel;
 import com.omellete.githubuser.model.ModelFollow;
+import com.omellete.githubuser.model.SearchModel;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,7 @@ public class MyViewModel extends ViewModel {
     private final MutableLiveData<DetailModel> modelUserMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<ArrayList<ModelFollow>> modelFollowersMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<ArrayList<ModelFollow>> modelFollowingMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<FavoriteModel>> modelFavoriteMutableLiveData = new MutableLiveData<>();
 
     public static String APIKey = "token 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";
 
@@ -70,10 +72,10 @@ public class MyViewModel extends ViewModel {
         });
     }
 
-    public void setFollowers(String strUsername) {
+    public void setFollowers(String username) {
         ApiInterface apiService = ApiService.getClient().create(ApiInterface.class);
 
-        Call<ArrayList<ModelFollow>> call = apiService.followersUser(APIKey, strUsername);
+        Call<ArrayList<ModelFollow>> call = apiService.followersUser(APIKey, username);
         call.enqueue(new Callback<ArrayList<ModelFollow>>() {
             @Override
             public void onResponse(Call<ArrayList<ModelFollow>> call, Response<ArrayList<ModelFollow>> response) {
@@ -91,10 +93,10 @@ public class MyViewModel extends ViewModel {
         });
     }
 
-    public void setFollowing(String strUsername) {
+    public void setFollowing(String username) {
         ApiInterface apiService = ApiService.getClient().create(ApiInterface.class);
 
-        Call<ArrayList<ModelFollow>> call = apiService.followingUser(APIKey, strUsername);
+        Call<ArrayList<ModelFollow>> call = apiService.followingUser(APIKey, username);
         call.enqueue(new Callback<ArrayList<ModelFollow>>() {
             @Override
             public void onResponse(Call<ArrayList<ModelFollow>> call, Response<ArrayList<ModelFollow>> response) {
@@ -115,6 +117,7 @@ public class MyViewModel extends ViewModel {
     public LiveData<ArrayList<SearchModel>> getResultList() {
         return searchModelMutableLiveData;
     }
+
 
     public LiveData<DetailModel> getUserList() {
         return modelUserMutableLiveData;

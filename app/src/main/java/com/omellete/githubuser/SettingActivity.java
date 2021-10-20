@@ -1,24 +1,24 @@
 package com.omellete.githubuser;
 
-import android.content.Intent;
+import static com.omellete.githubuser.MainActivity.dataStore;
+
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.datastore.preferences.core.Preferences;
-import androidx.datastore.preferences.rxjava3.RxPreferenceDataStoreBuilder;
-import androidx.datastore.rxjava3.RxDataStore;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
-import com.omellete.githubuser.db.SettingPreferences;
+import com.omellete.githubuser.databinding.ActivitySettingBinding;
+import com.omellete.githubuser.preference.SettingPreferences;
 import com.omellete.githubuser.viewmodel.MainViewModel;
-import com.omellete.githubuser.viewmodel.MyViewModel;
 import com.omellete.githubuser.viewmodel.ViewModelFactory;
 
 public class SettingActivity extends AppCompatActivity {
+
+    ActivitySettingBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +30,6 @@ public class SettingActivity extends AppCompatActivity {
         }
 
         SwitchMaterial switchTheme = findViewById(R.id.switch_theme);
-
-        RxDataStore<Preferences> dataStore = new RxPreferenceDataStoreBuilder(this, "settings").build();
         SettingPreferences pref = SettingPreferences.getInstance(dataStore);
 
         MainViewModel mainViewModel = new ViewModelProvider(this, new ViewModelFactory(pref)).get(MainViewModel.class);

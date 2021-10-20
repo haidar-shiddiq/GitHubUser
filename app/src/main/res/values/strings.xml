@@ -21,4 +21,6 @@
     <string name="settingbtn">setting</string>
     <string name="textsetting">Github User App\nversion 1.0</string>
     <string name="btnfavorite">favoritebtn</string>
+    <string name="deletebtn">deletebtn</string>
+    <string name="swipe_order">Swipe left or right to remove specific user</string>
 </resources>
