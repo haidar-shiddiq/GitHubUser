@@ -17,15 +17,19 @@ import androidx.appcompat.widget.SearchView;
 import androidx.datastore.preferences.core.Preferences;
 import androidx.datastore.preferences.rxjava3.RxPreferenceDataStoreBuilder;
 import androidx.datastore.rxjava3.RxDataStore;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.omellete.githubuser.adapter.UserListAdapter;
 import com.omellete.githubuser.databinding.ActivityMainBinding;
+import com.omellete.githubuser.model.SearchModel;
 import com.omellete.githubuser.preference.SettingPreferences;
 import com.omellete.githubuser.viewmodel.MainViewModel;
 import com.omellete.githubuser.viewmodel.MyViewModel;
 import com.omellete.githubuser.viewmodel.ViewModelFactory;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,12 +66,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
         searchViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(MyViewModel.class);
-        searchViewModel.getResultList().observe(this, modelSearchData -> {
-            loadingMessage.dismiss();
-            if (modelSearchData.size() != 0) {
-                userListAdapter.setSearchUserList(modelSearchData);
-            } else {
-                Toast.makeText(MainActivity.this, "Not Found", Toast.LENGTH_SHORT).show();
+        searchViewModel.getResultList().observe(this, new Observer<ArrayList<SearchModel>>() {
+            @Override
+            public void onChanged(ArrayList<SearchModel> modelSearchData) {
+                loadingMessage.dismiss();
+                if (modelSearchData.size() != 0) {
+                    userListAdapter.setSearchUserList(modelSearchData);
+                } else {
+                    Toast.makeText(MainActivity.this, "Not Found", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
